@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--<bean class="com.story.bean.Person" id="person1">
+        <constructor-arg value="2" ></constructor-arg>
+        <constructor-arg value="wangwu"></constructor-arg>
+        <constructor-arg value="20" type="java.lang.Integer"></constructor-arg>
+    </bean>
+
+    <bean class="com.story.bean.Person" id="person">
+        <constructor-arg value="1" ></constructor-arg>
+        <constructor-arg value="wangwu" ></constructor-arg>
+        <constructor-arg value="22" index="2"></constructor-arg>
+    </bean>
+
+    <bean id="person2" class="com.story.bean.Person1">
+        <property name="id" value="1"></property>
+        <property name="name" value="zhangsan"></property>
+        <property name="age" value="20"></property>
+        <property name="gender" value="男"></property>
+        &lt;!&ndash;StringToArrayConverter自动进行转换&ndash;&gt;
+        &lt;!&ndash;<property name="hobbies" value="book,movie,sport"></property>&ndash;&gt;
+
+        &lt;!&ndash; 给数组赋值&ndash;&gt;
+        <property name="hobbies">
+            <array>
+                <value>book</value>
+                <value>moive</value>
+                <value>sport</value>
+            </array>
+        </property>
+        
+        <property name="address" ref="address"></property>
+        &lt;!&ndash;<property name="lists" value="1,2,3"></property>&ndash;&gt;
+
+        <property name="lists">
+            <list>
+                <value>美洲</value>
+                <value>欧洲</value>
+                <value>亚洲</value>
+            </list>
+        </property>
+
+        <property name="addressList">
+            <list>
+                &lt;!&ndash; 内部bean不允许外部直接获取该对象&ndash;&gt;
+                <bean id="address2" class="com.story.bean.Address">
+                    <property name="province" value="河北"></property>
+                    <property name="city" value="石家庄"></property>
+                    <property name="town" value="中心区"></property>
+                </bean>
+                <bean  class="com.story.bean.Address">
+                    <property name="province" value="北京"></property>
+                    <property name="city" value="北京"></property>
+                    <property name="town" value="海淀区"></property>
+                </bean>
+                <ref bean="address"></ref>
+            </list>
+        </property>
+
+        &lt;!&ndash; 不会去重 &ndash;&gt;
+       &lt;!&ndash; <property name="sets" value="1,2,3,4,5,5,5,5"></property>&ndash;&gt;
+        <property name="sets">
+            <set>
+                <value>1</value>
+                <value>1</value>
+                <value>2</value>
+                <value>3</value>
+                <value>4</value>
+                <value>5</value>
+
+            </set>
+        </property>
+
+        <property name="map">
+            <map>
+                <entry key="1" value="zhangsan"></entry>
+                <entry key="2" value="lisi"></entry>
+                <entry key="address" value-ref="address"></entry>
+                <entry key="address2">
+                    <bean class="com.story.bean.Address">
+                        <property name="province" value="广东"></property>
+                        <property name="city" value="深圳"></property>
+                        <property name="town" value="海南"></property>
+                    </bean>
+                </entry>
+                <entry>
+                    <key>
+                        <value>key</value>
+                    </key>
+                    <value>value</value>
+                </entry>
+                <entry key="lists">
+                    <list>
+                        <value>1</value>
+                        <value>2</value>
+                        <value>3</value>
+                    </list>
+                </entry>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="a">111</prop>
+                <prop key="b">222</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="address" class="com.story.bean.Address">
+        <property name="province" value="上海市"></property>
+        <property name="city" value="上海市"></property>
+        <property name="town" value="杨浦区"></property>
+    </bean>
+
+    <bean id="parent" class="com.story.bean.Person" abstract="true">
+        <property name="id" value="1"></property>
+        <property name="name" value="zhangsan"></property>
+        <property name="age" value="11"></property>
+    </bean>
+
+    <bean id="son" class="com.story.bean.Person" parent="parent">
+        <property name="gender" value="man"></property>
+    </bean>-->
+
+    <bean id="address2" class="com.story.bean.Address" depends-on="person3"></bean>
+
+    <bean id="person3" class="com.story.bean.Person"></bean>
+    <bean id="person4" class="com.story.bean.Person" scope="prototype"></bean>
+
+
+</beans>

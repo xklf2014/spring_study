@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd"
+
+>
+
+    <!-- bean scope 默认为单例模式，可以切换为prototype -->
+    <bean id="person" class="com.story.bean.Person" scope="prototype">
+    <property name="id" value="1"></property>
+    <property name="name" value="zhangsan"></property>
+    <property name="age" value="18"></property>
+    <property name="gender"  value="男"></property>
+</bean>
+
+    <!-- constructor的name属性是根据构造方法的形参决定的 -->
+    <bean id="person2" class="com.story.bean.Person">
+        <constructor-arg name="id" value="2"></constructor-arg>
+        <constructor-arg name="name" value="lisi"></constructor-arg>
+        <constructor-arg name="age" value="12"></constructor-arg>
+        <constructor-arg name="gender" value="男"></constructor-arg>
+    </bean>
+
+    <!--在使用构造器赋值的时候可以省略name属性，但是此时就要求必须严格按照构造器参数的顺序来填写了-->
+    <bean id="person3" class="com.story.bean.Person">
+        <constructor-arg  value="3"></constructor-arg>
+        <constructor-arg  value="wangwu"></constructor-arg>
+        <constructor-arg  value="20"></constructor-arg>
+        <constructor-arg  value="男"></constructor-arg>
+    </bean>
+
+    <bean id="person4" class="com.story.bean.Person">
+        <constructor-arg  value="20"></constructor-arg>
+        <constructor-arg  value="wangwu"></constructor-arg>
+        <constructor-arg  value="3"></constructor-arg>
+        <constructor-arg  value="男"></constructor-arg>
+    </bean>
+
+    <bean id="person5" class="com.story.bean.Person">
+        <constructor-arg  value="20" index="2"></constructor-arg>
+        <constructor-arg  value="wangwu"></constructor-arg>
+        <constructor-arg  value="3" index="0"></constructor-arg>
+        <constructor-arg  value="男"></constructor-arg>
+    </bean>
+
+    <bean id="person6" class="com.story.bean.Person" p:id="6" p:name="wangliu" p:age="26" p:gender="男"></bean>
+
+</beans>

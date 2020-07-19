@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd"
+
+>
+
+    <!--静态工厂-->
+    <bean id="person" class="com.story.factory.PersonStaticFactory" factory-method="getInstance">
+        <constructor-arg value="zhangsan"></constructor-arg>
+    </bean>
+
+    <!--实例工厂-->
+    <bean id="instanceFactory" class="com.story.factory.PersonInstanceFactory"></bean>
+    <bean id="person2" class="com.story.bean.Person" factory-bean="instanceFactory" factory-method="getInstance">
+        <constructor-arg value="lisi"></constructor-arg>
+    </bean>
+
+    <bean id="myFactoryBean" class="com.story.factory.MyFactoryBean"></bean>
+
+
+    <!-- 初始化和销毁的方法是更scope属性相关联的
+        如果是singleton的话，初始化和销毁的方法都存在
+        如果是prototype的话，初始化方法会调用，但是销毁的方法不会调用
+     -->
+    <bean id="address" class="com.story.bean.Address" init-method="init" destroy-method="destory"></bean>
+
+   <!-- <bean id="myBeanPostProcessor" class="com.story.bean.MyBeanPostprocessor"></bean>-->
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="username" value="root"></property>
+        <property name="password" value="123456"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/demo"></property>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+    </bean>
+
+    <context:property-placeholder location="classpath:db.properties"></context:property-placeholder>
+    <bean id="dataSource2" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="username" value="${username}"></property>
+        <property name="password" value="${password}"></property>
+        <property name="url" value="${url}"></property>
+        <property name="driverClassName" value="${driverClassName}"></property>
+    </bean>
+
+
+</beans>
