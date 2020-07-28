@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+">
+
+    <bean id="logUtil4" class="com.story.utils.LogUtil4"></bean>
+    <bean id="logUtil5" class="com.story.utils.LogUtil5"></bean>
+    <bean id="calculatorImpl3" class="com.story.services.impl.CalculatorImpl3"></bean>
+
+    <aop:config>
+        <aop:pointcut id="mypointCut" expression="execution( Integer com.story.services.impl.CalculatorImpl3.*(Integer,Integer))"/>
+        
+        <aop:aspect ref="logUtil4">
+            <aop:before method="start" pointcut-ref="mypointCut"></aop:before>
+            <aop:after method="logFinally"  pointcut-ref="mypointCut"></aop:after>
+            <aop:after-returning method="end"  pointcut-ref="mypointCut" returning="result"></aop:after-returning>
+            <aop:after-throwing method="logException"  pointcut-ref="mypointCut" throwing="e"></aop:after-throwing>
+            <aop:around method="around"  pointcut-ref="mypointCut"></aop:around>
+        </aop:aspect>
+
+        <aop:aspect ref="logUtil5">
+            <aop:pointcut id="inner_point" expression="execution( Integer com.story.services.impl.CalculatorImpl3.*(..))"/>
+            <aop:before method="start" pointcut-ref="inner_point"></aop:before>
+            <aop:after method="logFinally" pointcut-ref="inner_point"></aop:after>
+            <aop:after-returning method="end" pointcut-ref="inner_point" returning="result"></aop:after-returning>
+            <aop:after-throwing method="logException" pointcut-ref="inner_point" throwing="e"></aop:after-throwing>
+        </aop:aspect>
+    </aop:config>
+</beans>
