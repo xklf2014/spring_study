@@ -6,9 +6,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TxTest {
 
@@ -88,5 +91,24 @@ public class TxTest {
         EmpDao empDao = context.getBean("empDao", EmpDao.class);
         int res = empDao.save(new Emp(1008, "xixi"));
         System.out.println(res);
+    }
+
+    @Test
+    void testGroup(){
+        JdbcTemplate jdbcTemplate = context.getBean("jdbcTemplate", JdbcTemplate.class);
+        String sql = "select max(sal) from emp";
+        Double aDouble = jdbcTemplate.queryForObject(sql, Double.class);
+        System.out.println(aDouble);
+    }
+
+    @Test
+    void testNamedParameter(){
+        NamedParameterJdbcTemplate jdbcTemplate = context.getBean("namedParameterJdbcTemplate", NamedParameterJdbcTemplate.class);
+        String sql = "insert into emp(empno,ename) values(:empno,:ename)";
+        Map<String ,Object> map = new HashMap<>();
+        map.put("empno",1111);
+        map.put("ename","wangwu");
+        int update = jdbcTemplate.update(sql, map);
+        System.out.println(update);
     }
 }

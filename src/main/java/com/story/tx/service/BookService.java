@@ -3,6 +3,7 @@ package com.story.tx.service;
 import com.story.tx.dao.BookDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +39,7 @@ public class BookService {
     }
 */
 
-    //设置那些异常不会回滚，发生异常的地方，后面还会回滚
+    //设置那些异常不会回滚
 /*    @Transactional(noRollbackFor = {ArithmeticException.class})
     public void buyBook(){
         bookDao.getPrice(1);
@@ -47,7 +48,7 @@ public class BookService {
         bookDao.updateStock(1);
     }*/
 
-    //指定类名进行回滚
+    //指定类名不会回滚
 /*    @Transactional(noRollbackForClassName = {"java.lang.ArithmeticException"})
     public void buyBook(){
         bookDao.getPrice(1);
@@ -72,6 +73,14 @@ public class BookService {
         bookDao.updateBalance("zhangsan",100);
         bookDao.updateStock(1);
         new FileInputStream("aaa.txt");
+    }*/
+
+ /*   @Transactional(timeout = 3,isolation = Isolation.READ_COMMITTED)
+       public void buyBook() {
+
+        bookDao.updateStock(id);
+        int price = bookDao.getPrice(id);
+        bookDao.updateBalance(username,price);
     }*/
 
 
@@ -172,5 +181,12 @@ public class BookService {
         //System.out.println(1/0);
         bookDao.updatePrice(1);
 
+    }
+
+    @Transactional
+    public void mult(){
+        buyBook();
+        updateprice();
+        System.out.println(1/0);
     }
 }
